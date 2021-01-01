@@ -65,10 +65,8 @@ namespace SISOCOVE
             figuras.FillEllipse(new SolidBrush(Color.FromArgb(50, 243,19,19)), e.X - ancho/2, e.Y - largo/2, ancho, largo);
           
             Console.WriteLine(e.Button);
+           
             
-            
-
-            }
             pictureBox1.Refresh();
 
 
