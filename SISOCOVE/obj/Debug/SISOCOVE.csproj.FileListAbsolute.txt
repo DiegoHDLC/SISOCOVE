@@ -1,0 +1,14 @@
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\bin\Debug\SISOCOVE.exe.config
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\bin\Debug\SISOCOVE.exe
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\bin\Debug\SISOCOVE.pdb
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.csprojAssemblyReference.cache
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.Form1.resources
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.Properties.Resources.resources
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.csproj.GenerateResource.cache
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.csproj.CoreCompileInputs.cache
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.exe
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.pdb
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\bin\Debug\SISOCOVE.exe.manifest
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\bin\Debug\SISOCOVE.application
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.exe.manifest
+C:\Users\di_eg\source\repos\SISOCOVE\SISOCOVE\obj\Debug\SISOCOVE.application
