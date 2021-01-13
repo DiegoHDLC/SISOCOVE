@@ -1,5 +1,6 @@
 ﻿using SISOCOVE.Controlador;
 using SISOCOVE.Modelo;
+using SISOCOVE.Modelo.AlgoritmoGenético;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,20 @@ namespace SISOCOVE.Principal
             Coordinador miCoordinador = new Coordinador();
             VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
             LogicaPrincipal logicaPrincipal = new LogicaPrincipal();
+            Población población = new Población();
+            FunciónFitness funciónFitness = new FunciónFitness();
 
             ventanaPrincipal.SetCoordinador(miCoordinador);
             logicaPrincipal.SetCoordinador(miCoordinador);
+            población.SetCoordinador(miCoordinador);
+            funciónFitness.SetCoordinador(miCoordinador);
 
+
+            miCoordinador.setPoblación(población);
             miCoordinador.setVentanaPrincipal(ventanaPrincipal);
             miCoordinador.setLogicaPrincipal(logicaPrincipal);
+            miCoordinador.SetFunciónFitness(funciónFitness);
+
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using SISOCOVE.Modelo;
+using SISOCOVE.Modelo.AlgoritmoGenético;
 using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace SISOCOVE.Controlador
     {
         VentanaPrincipal ventanaPrincipal;
         LogicaPrincipal logicaPrincipal;
+        Población población;
+        FunciónFitness funciónFitness;
         public void setVentanaPrincipal(VentanaPrincipal ventanaPrincipal)
         {
             this.ventanaPrincipal = ventanaPrincipal;
@@ -24,10 +27,24 @@ namespace SISOCOVE.Controlador
             throw new NotImplementedException();
         }
 
+        internal void SetFunciónFitness(FunciónFitness funciónFitness)
+        {
+            this.funciónFitness = funciónFitness;
+        }
+
+        internal void setPoblación(Población población)
+        {
+            this.población = población;
+        }
+
         public void Evaluar(int cantPoblación)
         {
             logicaPrincipal = new LogicaPrincipal();
-            List<List<double>> población = new List<List<double>>();
+            funciónFitness = new FunciónFitness();
+            población = new Población();
+
+
+            List<List<double>> listaPoblación = new List<List<double>>();
             List<double> individuo = new List<double>();
             List<List<double>> datosFlujoNodos = new List<List<double>>();
             List<List<double>> datosCicloNodos = new List<List<double>>();
@@ -52,28 +69,43 @@ namespace SISOCOVE.Controlador
                 datosFlujoNodos = logicaPrincipal.ObtenerDatosFlujoNodo(listaNodos[i]);
                 datosCicloNodos = logicaPrincipal.ObtenerDatosCicloNodo(listaNodos[i]);
                 listaFlujoSaturación = logicaPrincipal.ObtenerFlujoSaturación(listaNodos[i], datosFlujoNodos, listaFlujoSaturación);
-                IRIntersecciones = logicaPrincipal.ObtenerIR(listaNodos[i], datosFlujoNodos, datosCicloNodos, listaFlujoSaturación);
-               
+
+                
+
+                IRIntersecciones = funciónFitness.ObtenerIR(listaNodos[i], datosFlujoNodos, datosCicloNodos, listaFlujoSaturación);
+
                 foreach (List<double> IRNodo in IRIntersecciones)
                 {
-                    Console.WriteLine("IR Nodo[" + IRNodo[0] + "]: " + IRNodo[1]);
+                    //Console.WriteLine("IR Nodo[" + IRNodo[0] + "]: " + IRNodo[1]);
                 }
-
-                población = logicaPrincipal.GenerarPoblación(listaNodos, datosCicloNodos, cantIntersecciones);
+               
+                listaPoblación = población.GenerarPoblación(listaNodos, datosCicloNodos, cantIntersecciones);
                 sumaIR = logicaPrincipal.SumaIR(IRIntersecciones, sumaIR);
-                
             }
             cantIntersecciones = 0;
             for (int i = 0; i < cantIntersecciones; i++)
             {
+                Console.WriteLine("entra");
                 probabilidadNodos = logicaPrincipal.ObtenerProbabilidad(listaNodos[i], probabilidad, IRIntersecciones, sumaIR);
             }
+            double suma = 0;
+            cantIntersecciones = 0;
             for (int i = 0; i < cantIntersecciones; i++)
             {
-                probabilidadesAcumuladas = logicaPrincipal.ObtenerProbabilidadAcumulada(listaNodos[i], probabilidadNodos);
+                Console.WriteLine("entra");
+                probabilidadesAcumuladas = logicaPrincipal.ObtenerProbabilidadAcumulada(listaNodos[i], probabilidadNodos, suma);
             }
-
-            Console.WriteLine("IR TOTAL:"+sumaIR);
+            
+            foreach(List<double> probACumNodo in probabilidadesAcumuladas)
+            {
+                Console.WriteLine("nodo"+probACumNodo[0] + ": "+probACumNodo[1]);
+            }
+            
+            //Console.WriteLine("IR TOTAL:"+sumaIR);
         }
+
+        
+
+        
     }
 }

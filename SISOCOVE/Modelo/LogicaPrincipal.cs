@@ -21,20 +21,6 @@ namespace SISOCOVE.Modelo
             throw new NotImplementedException();
         }
 
-        public List<List<double>> GenerarPoblación(List<int> listaNodos, List<List<double>> datosCicloNodo, int cantIntersecciones)
-        {
-            List<List<double>> población = new List<List<double>>();
-            
-            for (int i = 0; i < cantIntersecciones; i++)
-            {
-                List<double> individuo = new List<double>();
-                individuo = GenerarIndividuo(listaNodos[i], datosCicloNodo);
-                población.Add(individuo);
-            }
-           
-            return población;
-        }
-
         internal int CalcularCantIntersecciones(List<int> listaNodos)
         {
             int cantIntersecciones = 0;
@@ -45,46 +31,7 @@ namespace SISOCOVE.Modelo
             return cantIntersecciones;
         }
 
-        internal List<List<double>> ObtenerIR(int nodo, List<List<double>> datosFlujoNodo, List<List<double>> datosCicloNodo, List<List<double>> datosSaturaciónNodo)
-        {
-            List<List<double>> IRintersecciones = new List<List<double>>();
-            List<double> IRNodo = new List<double>();
-            double IR = 0;
-            double flujo = 0;
-            double ciclo = 0;
-            double verdeEfectivo = 0;
-            double saturación = 0;
-
-            foreach (List<double> datoFlujo in datosFlujoNodo)
-            {
-                if (datoFlujo[0] == nodo)
-                {
-                    flujo = datoFlujo[1];
-                }
-            }
-            foreach (List<double> datoTiempos in datosCicloNodo)
-            {
-                if (datoTiempos[0] == nodo)
-                {
-                    ciclo = datoTiempos[1];
-                    verdeEfectivo = datoTiempos[4];
-                }
-            }
-            foreach (List<double> datoSaturación in datosSaturaciónNodo)
-            {
-                if (datoSaturación[0] == nodo)
-                {
-                    saturación = datoSaturación[1];
-                }
-            }
-            IR = FunciónFitness(flujo, verdeEfectivo, saturación, ciclo);
-            IRNodo.Add(nodo);
-            IRNodo.Add(IR);
-            IRintersecciones.Add(IRNodo);
-
-
-            return IRintersecciones;
-        }
+    
 
         internal double SumaIR(List<List<double>> iRIntersecciones, double sumaIR)
         {
@@ -117,23 +64,31 @@ namespace SISOCOVE.Modelo
             return probabilidadNodos;
         }
 
-        internal List<List<double>> ObtenerProbabilidadAcumulada(int nodo, List<List<double>> probabilidadNodos)
+        internal List<List<double>> ObtenerProbabilidadAcumulada(int nodo, List<List<double>> probabilidadNodos, double suma)
         {
+            List<double> probabilidadAcumuladaNodo = new List<double>();
+            List<List<double>> probabilidadAcumuladaNodos = new List<List<double>>();
+            
+            foreach(List<double> probNodo in probabilidadNodos)
+            {
+                if(probNodo[1] == nodo)
+                {
+                  
+                        
+                    suma = probNodo[1]+ suma;
+                    probabilidadAcumuladaNodo.Add(nodo);
+                    probabilidadAcumuladaNodo.Add(suma);
+                    
+                   
+                    probabilidadAcumuladaNodos.Add(probabilidadAcumuladaNodo);
+                }
+            }
+
+            
             return probabilidadNodos;
         }
 
-        private double FunciónFitness(double flujo, double verdeEfectivo, double flujoDeSaturación, double ciclo)
-        {
-
-            double q = flujo / 3600;
-            double Q = (verdeEfectivo / ciclo) * flujoDeSaturación;
-            double x = q / Q;
-            double t = 15 * 60;
-            double x0 = 0.67 + (flujoDeSaturación * verdeEfectivo) / 600;
-            double N = ((Q * t) / 4) * ((x - 1) + Math.Sqrt(Math.Pow((x - 1), 2) + (12 * (x - x0)) / (Q * t)));
-            double D = Math.Abs(N * x);
-            return D;
-        }
+  
 
         internal List<List<double>> ObtenerFlujoSaturación(int nodo, List<List<double>> listaFlujoNodos, List<List<double>> listaFlujoSaturación)
         {
@@ -179,12 +134,13 @@ namespace SISOCOVE.Modelo
             datosCicloNodo.Add(IVTF2);
             datosCicloNodo.Add(TVF1);
             datosCicloNodo.Add(TVF2);
-            Console.Write("nodo[" + nodo + "]");
+            /*Console.Write("nodo[" + nodo + "]");
             for (int i = 0; i < datosCicloNodo.Count; i++)
             {
                 Console.Write(datosCicloNodo[i] + " ");
             }
             Console.WriteLine("");
+            */
             listaDatosCicloNodo.Add(datosCicloNodo);
 
             return listaDatosCicloNodo;
@@ -213,8 +169,8 @@ namespace SISOCOVE.Modelo
                     datosFlujoNodo.Add(VEQ);
                     datosFlujoNodo.Add(VEHPesados);
                     listaDatosFlujoNodo.Add(datosFlujoNodo);
-
-                    /*for(int i = 0; i< datosFlujoNodo.Count; i++)
+                    /*
+                    for(int i = 0; i< datosFlujoNodo.Count; i++)
                     {
                         Console.Write(datosFlujoNodo[i]+" ");
                     }
@@ -231,27 +187,7 @@ namespace SISOCOVE.Modelo
             return listaDatosFlujoNodo;
         }
 
-        private List<double> GenerarIndividuo(int nodo, List<List<double>> datosCicloNodos)
-        {
-
-            List<double> individuo = new List<double>();
-           
-            List<double> verdeEfectivo = new List<double>();
-            int i = 0;
-            foreach(List<double> datoCiclo in datosCicloNodos)
-            {
-                if(datoCiclo[i] == nodo)
-                {
-                    individuo.Add(0);
-                    individuo.Add(18);
-                    individuo.Add(datoCiclo[3]);
-                    individuo.Add(datoCiclo[4]);
-                }
-                i++;
-            }
-
-
-            return individuo;
+        
 
 
         }
@@ -260,5 +196,5 @@ namespace SISOCOVE.Modelo
   
 
 
-    }
+    
 }

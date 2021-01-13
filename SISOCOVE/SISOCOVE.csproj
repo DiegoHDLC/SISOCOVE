@@ -97,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlador\Coordinador.cs" />
+    <Compile Include="Modelo\AlgoritmoGenético\Casamiento.cs" />
+    <Compile Include="Modelo\AlgoritmoGenético\FunciónFitness.cs" />
+    <Compile Include="Modelo\AlgoritmoGenético\Población.cs" />
     <Compile Include="Modelo\LogicaPrincipal.cs" />
     <Compile Include="Principal\Principal.cs" />
     <Compile Include="Vista\VentanaPrincipal.cs">
