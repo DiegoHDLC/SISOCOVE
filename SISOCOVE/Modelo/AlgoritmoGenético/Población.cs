@@ -16,37 +16,44 @@ namespace SISOCOVE.Modelo
             this.miCoodinador = miCoordinador;
         }
 
-        public List<List<double>> GenerarPoblación(List<int> listaNodos, List<List<double>> datosCicloNodo, int cantIntersecciones)
+        public List<List<double>> GenerarPoblación(int nodo, List<List<double>> datosCicloNodo, int cantIntersecciones, List<List<double>> población)
         {
-            List<List<double>> población = new List<List<double>>();
 
-            for (int i = 0; i < cantIntersecciones; i++)
-            {
-                List<double> individuo = new List<double>();
-                individuo = GenerarIndividuo(listaNodos[i], datosCicloNodo);
+            
+
+            List<double> individuo = new List<double>();
+                individuo = GenerarIndividuo(nodo, datosCicloNodo, individuo);
                 población.Add(individuo);
-            }
+                /*for(int j = 0; j < individuo.Count; j++)
+                {
+                    Console.WriteLine(individuo[j]);
+                }
+                Console.WriteLine();
+                */
+            
+           
 
             return población;
         }
 
-        private List<double> GenerarIndividuo(int nodo, List<List<double>> datosCicloNodos)
+        private List<double> GenerarIndividuo(int nodo, List<List<double>> datosCicloNodos, List<double> individuo)
         {
 
-            List<double> individuo = new List<double>();
+            
 
             List<double> verdeEfectivo = new List<double>();
-            int i = 0;
+           
             foreach (List<double> datoCiclo in datosCicloNodos)
             {
-                if (datoCiclo[i] == nodo)
+                if (datoCiclo[0] == nodo)
                 {
+                    individuo.Add(nodo);
                     individuo.Add(0);
                     individuo.Add(18);
-                    individuo.Add(datoCiclo[3]);
-                    individuo.Add(datoCiclo[4]);
+                    individuo.Add(datoCiclo[7]);
+                    individuo.Add(datoCiclo[8]);
                 }
-                i++;
+                
             }
 
 

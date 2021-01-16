@@ -133,5 +133,17 @@ namespace SISOCOVE
             int cantPoblación = 3;
             miCoordinador.Evaluar(cantPoblación);
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            miCoordinador = new Coordinador();
+            int indice = comboBox1.SelectedIndex;
+            
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -10,9 +10,9 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
     class FunciónFitness
     {
         Coordinador miCoordinador;
-        internal List<List<double>> ObtenerIR(int nodo, List<List<double>> datosFlujoNodo, List<List<double>> datosCicloNodo, List<List<double>> datosSaturaciónNodo)
+        internal List<List<double>> ObtenerIR(int nodo, List<List<double>> datosFlujoNodo, List<List<double>> datosCicloNodo, List<List<double>> datosSaturaciónNodo, List<List<double>> IRintersecciones)
         {
-            List<List<double>> IRintersecciones = new List<List<double>>();
+            
             List<double> IRNodo = new List<double>();
             double IR = 0;
             double flujo = 0;
@@ -47,7 +47,6 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
             IRNodo.Add(IR);
             IRintersecciones.Add(IRNodo);
 
-
             return IRintersecciones;
         }
 
@@ -56,7 +55,16 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
             this.miCoordinador = miCoordinador;
         }
 
-        private double FFitness(double flujo, double verdeEfectivo, double flujoDeSaturación, double ciclo)
+        internal double SumaIR(List<List<double>> iRIntersecciones, double sumaIR)
+        {
+            foreach (List<double> IRNodo in iRIntersecciones)
+            {
+                sumaIR = sumaIR + IRNodo[1];
+            }
+            return sumaIR;
+        }
+
+        public double FFitness(double flujo, double verdeEfectivo, double flujoDeSaturación, double ciclo)
         {
 
             double q = flujo / 3600;
