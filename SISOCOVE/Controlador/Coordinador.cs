@@ -169,7 +169,7 @@ namespace SISOCOVE.Controlador
             Console.WriteLine("Ganador: ");
             foreach (double gen in indGanador)
             {
-                Console.WriteLine(gen);
+                //Console.WriteLine(gen);
             }
 
 
