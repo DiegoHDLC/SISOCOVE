@@ -10,7 +10,7 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
     class FunciónFitness
     {
         Coordinador miCoordinador;
-        internal List<List<double>> ObtenerIR(int nodo, List<List<double>> datosFlujoNodo, List<List<double>> datosCicloNodo, List<List<double>> datosSaturaciónNodo, List<List<double>> IRintersecciones)
+        internal List<List<double>> ObtenerIR(int nodo, List<List<double>> datosFlujoNodo, List<List<double>> datosCicloNodo, List<List<double>> datosSaturaciónNodo, List<List<double>> IRintersecciones, double VerdeEfectivo, int generación)
         {
             
             List<double> IRNodo = new List<double>();
@@ -32,7 +32,15 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                 if (datoTiempos[0] == nodo)
                 {
                     ciclo = datoTiempos[1];
-                    verdeEfectivo = datoTiempos[4];
+                    if(generación == 0)
+                    {
+                        verdeEfectivo = datoTiempos[4];
+                    }
+                    else
+                    {
+                        verdeEfectivo = VerdeEfectivo;
+                    }
+                    
                 }
             }
             foreach (List<double> datoSaturación in datosSaturaciónNodo)

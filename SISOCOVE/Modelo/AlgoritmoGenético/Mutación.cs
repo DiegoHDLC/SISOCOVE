@@ -29,7 +29,7 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                 }
                 if (genElegido != 1)
                 {
-                    individuoAMutar[genElegido] = genNoBin;
+                    individuoAMutar[3] = genNoBin;
                 }
                 verificado = verificarAbominación(individuoAMutar, entreverde, ciclo);
             }
@@ -48,6 +48,24 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                 return true;
             }
             return false;
+        }
+
+        internal List<List<double>> MutarIndividuosPrueba(List<List<double>> individuoAMutar, double ciclo)
+        {
+            List<List<double>> individuoMutado = new List<List<double>>();
+            
+            Random r = new Random();
+            foreach (List<double> nodo in individuoAMutar)
+            {
+                List<double> nuevoNodo = new List<double>();
+                nuevoNodo.Add(nodo[0]);
+                nuevoNodo.Add(nodo[1]);
+                nuevoNodo.Add(nodo[2]);
+                nuevoNodo.Add(r.Next(1, Convert.ToInt32(ciclo)));
+                nuevoNodo.Add(nodo[4]);
+                individuoMutado.Add(nuevoNodo);
+            }
+            return individuoMutado;
         }
     }
 }

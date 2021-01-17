@@ -21,16 +21,17 @@ namespace SISOCOVE.Modelo
             throw new NotImplementedException();
         }
 
-        internal List<List<double>> ObtenerProbabilidad(int nodo, List<List<double>> iRIntersecciones, double sumaIR, List<List<double>> probabilidadNodos)
+        internal List<List<double>> ObtenerProbabilidad(int nodo, List<List<double>> IRPoblación, double sumaIR, List<List<double>> probabilidadNodos)
         {
-            foreach (List<double> IRNodo in iRIntersecciones)
+
+            foreach (List<double> IRIndividuo in IRPoblación)
             {
-                if (IRNodo[0] == nodo)
+                if (IRIndividuo[0] == nodo)
                 {
                     List<double> probabiliad = new List<double>();
                     probabiliad.Add(nodo);
-                    probabiliad.Add(IRNodo[1] / sumaIR);
-                    probabilidadNodos.Add(probabiliad);    
+                    probabiliad.Add(IRIndividuo[1] / sumaIR);
+                    probabilidadNodos.Add(probabiliad);
                 }
             }
             return probabilidadNodos;
@@ -93,7 +94,7 @@ namespace SISOCOVE.Modelo
             return listaRandom[r.Next(1,listaRandom.Count-1)];
         }
 
-        internal List<double> SeleccionarPadre(List<List<double>> listaPoblación, List<List<double>> probabilidadesAcumuladas, double numAleatorio, List<double> padre)
+        internal List<List<double>> SeleccionarPadre(List<List<List<double>>> listaPoblación, List<List<double>> probabilidadesAcumuladas, double numAleatorio, List<List<List<double>>> listaPadres)
         {
             
             foreach (List<double> probAcum in probabilidadesAcumuladas)
@@ -103,24 +104,27 @@ namespace SISOCOVE.Modelo
                 if(numAleatorio < probAcum[1])
                 {
                    double posición = probAcum[0];
-                   foreach(List<double> ind in listaPoblación)
+                    double cont = 0;
+                   
+                   foreach(List<List<double>> ind in listaPoblación)
                     {
-                       if(ind[0] == posición)
-                        {
-                            padre = ind;
-                            return padre;
-                        }
                        
+                        if(cont == posición)
+                        {
                             
-                        
-                        
+                            //verificarPadre(listaPadres, padre);
+                            return ind;
+                        }
+                        cont++;
                     }
                     
                 }
                 
             }
-            return padre;
+            return null;
         }
+
+ 
 
         internal bool ValidadPadres(List<List<double>> listaPadres)
         {
