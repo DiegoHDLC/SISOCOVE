@@ -58,6 +58,17 @@ namespace SISOCOVE.Modelo
             return probabilidadAcumuladaNodos;
         }
 
+        internal double GenerarNumAleatorio(double ciclo)
+        {
+            List<double> listaRand = new List<double>();
+            Random r = new Random();
+            for(int i = 0; i< 500; i++)
+            {
+                listaRand.Add(r.Next(1, Convert.ToInt32(ciclo)));
+            }
+            return listaRand[r.Next(0,listaRand.Count)];
+        }
+
         internal void InstanciarArchivos()
         {
             String path = @"C:\Users\di_eg\Desktop\Datos UOCT\Mediciones de Flujo por Periodo Centro LS.xlsx";
@@ -142,6 +153,14 @@ namespace SISOCOVE.Modelo
                 return true;
             }
           
+        }
+
+        internal void imprimirDatosGrandes(List<List<List<double>>> poblaciónPrueba, string v)
+        {
+            foreach(List<List<double>> ind in poblaciónPrueba)
+            {
+                imprimirDatos(ind, v);
+            }
         }
     }
 

@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SISOCOVE.exe" size="1249760">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SISOCOVE.exe" size="1251296">
       <assemblyIdentity name="SISOCOVE" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IycwXvw+Jm43NHfBdf4VtGiPoUHFkULxkpjxJ0RYRik=</dsig:DigestValue>
+        <dsig:DigestValue>xY/NJ6PfiMFGUeyxAHxROBDfwKZ5qJOfHVotpaHdVVk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

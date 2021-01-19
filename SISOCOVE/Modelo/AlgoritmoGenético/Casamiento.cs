@@ -102,7 +102,7 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                         nodoHijo1.Add(nodo[0]);
                         nodoHijo1.Add(nodo[1]);
                         nodoHijo1.Add(nodo[2]);
-                        nodoHijo1.Add(num);
+                        nodoHijo1.Add(Math.Abs(num));
                         nodoHijo1.Add(nodo[4]);
                         hijo1.Add(nodoHijo1);                   
                     }
@@ -111,7 +111,7 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                         nodoHijo2.Add(nodo[0]);
                         nodoHijo2.Add(nodo[1]);
                         nodoHijo2.Add(nodo[2]);
-                        nodoHijo2.Add(num);
+                        nodoHijo2.Add(Math.Abs(num));
                         nodoHijo2.Add(nodo[4]);
                         hijo2.Add(nodoHijo2);
                         
@@ -136,5 +136,16 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
             //logicaPrincipal.imprimirDatos(hijo2, "Hijo2");
             return listaHijos;
         }
+
+        /*internal List<List<List<double>>> CruceAritmético(List<List<List<double>>> listaPadresPrueba)
+        {
+            List<List<double>> padre1 = new List<List<double>>();
+            List<List<double>> padre2 = new List<List<double>>();
+
+            padre1 = listaPadresPrueba[0];
+            padre2 = listaPadresPrueba[1];
+
+
+        }*/
     }
 }
