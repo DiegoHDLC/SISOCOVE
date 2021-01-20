@@ -18,7 +18,10 @@ namespace SISOCOVE.Modelo
 
         public List<List<double>> GenerarPoblación(int nodo, List<List<double>> datosCicloNodo, int cantIntersecciones, List<List<double>> población)
         {
-
+            if(datosCicloNodo == null)
+            {
+                Console.WriteLine("lista de datos, referentes al ciclo del nodo, tiene valor nulo");
+            }
             
 
             List<double> individuo = new List<double>();

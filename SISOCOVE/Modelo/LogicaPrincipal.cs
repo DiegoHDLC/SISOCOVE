@@ -75,7 +75,7 @@ namespace SISOCOVE.Modelo
             SLDocument sl = new SLDocument(path);
         }
 
-        internal void imprimirDatos(List<List<double>> listaDoble, String título)
+        internal void ImprimirDatos(List<List<double>> listaDoble, String título)
         {
             Console.WriteLine(título);
             foreach(List<double> lista in listaDoble)
@@ -98,68 +98,18 @@ namespace SISOCOVE.Modelo
         {
             Random r = new Random();
   
-            for(int j = 0; j < 20;j++)
+            for(int j = 0; j < 10;j++)
             {
                 listaRandom.Add(r.NextDouble());
             }
             return listaRandom[r.Next(1,listaRandom.Count-1)];
         }
 
-        internal List<List<double>> SeleccionarPadre(List<List<List<double>>> listaPoblación, List<List<double>> probabilidadesAcumuladas, double numAleatorio, List<List<List<double>>> listaPadres)
-        {
-            
-            foreach (List<double> probAcum in probabilidadesAcumuladas)
-            {
-                //Console.WriteLine("Numero aleatorio: " + numAleatorio);
-          
-                if(numAleatorio < probAcum[1])
-                {
-                   double posición = probAcum[0];
-                    double cont = 0;
-                   
-                   foreach(List<List<double>> ind in listaPoblación)
-                    {
-                       
-                        if(cont == posición)
-                        {
-                            
-                            //verificarPadre(listaPadres, padre);
-                            return ind;
-                        }
-                        cont++;
-                    }
-                    
-                }
-                
-            }
-            return null;
-        }
-
- 
-
-        internal bool ValidadPadres(List<List<double>> listaPadres)
-        {
-            List<double> nodos = new List<double>();
-            foreach (List<double> padre in listaPadres)
-            {
-                nodos.Add(padre[0]);
-            }
-            if(nodos[1] == nodos[0])
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-          
-        }
-
         internal void imprimirDatosGrandes(List<List<List<double>>> poblaciónPrueba, string v)
         {
             foreach(List<List<double>> ind in poblaciónPrueba)
             {
-                imprimirDatos(ind, v);
+                ImprimirDatos(ind, v);
             }
         }
     }

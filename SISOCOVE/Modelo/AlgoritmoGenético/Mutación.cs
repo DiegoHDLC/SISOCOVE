@@ -15,21 +15,7 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
             this.miCoordinador = miCoordinador;
         }
 
-        private bool verificarAbominación(List<double> individuoAMutar, double entreverde, double ciclo)
-        {
-            double gen1 = individuoAMutar[1];
-            double gen2 = individuoAMutar[2];
-            double gen3 = individuoAMutar[3];
-            double gen4 = individuoAMutar[4];
- 
-            if (gen3+gen4+entreverde <=ciclo)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        internal List<List<double>> MutarIndividuosPrueba(List<List<double>> individuoAMutar, double ciclo, Random random)
+        internal List<List<double>> GenerarMutación(List<List<double>> individuoAMutar, double ciclo, Random random)
         {
             List<List<double>> individuoMutado = new List<List<double>>();
             LogicaPrincipal logicaPrincipal = new LogicaPrincipal();
@@ -82,9 +68,9 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                 if (numAleatorio < 0.2)
                 {
 
-                    individuoMutado = MutarIndividuosPrueba(individuosAMutar[i], ciclo, random);
+                    individuoMutado = GenerarMutación(individuosAMutar[i], ciclo, random);
                     individuosMutados.Add(individuoMutado);
-                    //Console.WriteLine("Mutado");
+                    Console.WriteLine("Mutado");
                 }
                 else
                 {

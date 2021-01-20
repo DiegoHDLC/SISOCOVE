@@ -64,7 +64,7 @@ namespace SISOCOVE.Controlador
             List<int> listaNodos = new List<int>();
             List<List<double>> listaPoblación = new List<List<double>>();
             List<double> cicloNodo1 = new List<double>();
-            int cantGeneraciones = 2000;
+            int cantGeneraciones = 1000;
             logicaPrincipal.InstanciarArchivos();
             double ciclo = 0;
 
@@ -138,7 +138,7 @@ namespace SISOCOVE.Controlador
                     listaFlujoSaturación = intersección.ObtenerFlujoSaturación(Convert.ToInt32(inter[0]), datosFlujoNodos, listaFlujoSaturación);
                     IRIntersecciones = funciónFitness.ObtenerIR(Convert.ToInt32(inter[0]), datosFlujoNodos, datosCicloNodos, listaFlujoSaturación, IRIntersecciones, inter[3], 1);
                 }
-                logicaPrincipal.imprimirDatos(IRIntersecciones, "IR Individuo ");
+                logicaPrincipal.ImprimirDatos(IRIntersecciones, "IR Individuo ");
                 sumaIR = funciónFitness.SumaIR(IRIntersecciones, 0);
                 IRIndividuoPrueba.Add(cont);
                 IRIndividuoPrueba.Add(sumaIR);
@@ -146,7 +146,7 @@ namespace SISOCOVE.Controlador
 
                 cont++;
             }
-            logicaPrincipal.imprimirDatos(IRPoblaciónPrueba, "IR Población");
+            logicaPrincipal.ImprimirDatos(IRPoblaciónPrueba, "IR Población");
             double sumaIRTotal = funciónFitness.SumaIR(IRPoblaciónPrueba, 0);
 
             //Console.WriteLine("Suma IR total población: "+ sumaIRTotal);
@@ -156,10 +156,10 @@ namespace SISOCOVE.Controlador
                 probabilidadIndividuos = logicaPrincipal.ObtenerProbabilidad(Convert.ToInt32(IRInd[0]), IRPoblaciónPrueba, sumaIRTotal, probabilidadIndividuos);
             }
 
-            logicaPrincipal.imprimirDatos(probabilidadIndividuos, "Probabilidad individuos");
+            logicaPrincipal.ImprimirDatos(probabilidadIndividuos, "Probabilidad individuos");
             List<List<double>> probabilidadesAcumuladasPrueba = new List<List<double>>();
             probabilidadesAcumuladasPrueba = logicaPrincipal.ObtenerProbabilidadAcumulada(probabilidadIndividuos, 0, probabilidadesAcumuladasPrueba);
-            logicaPrincipal.imprimirDatos(probabilidadesAcumuladasPrueba, "Probabilidades acumuladas");
+            logicaPrincipal.ImprimirDatos(probabilidadesAcumuladasPrueba, "Probabilidades acumuladas");
 
             List<List<List<double>>> listaPadresPrueba = new List<List<List<double>>>();
             List<double> listaRandom = new List<double>();
@@ -172,7 +172,7 @@ namespace SISOCOVE.Controlador
             List<List<List<double>>> individuosAMutar = new List<List<List<double>>>();
             if (numAleatorio < 0.6) {
                     //Console.WriteLine("entra a cruzar");
-                    individuosAMutar = casamiento.CruzarIndividuosPrueba(listaPadresPrueba);
+                    individuosAMutar = casamiento.CruzarIndividuos(listaPadresPrueba);
                     //individuosAMutar = casamiento.CruceAritmético(listaPadresPrueba);
                 }
                
@@ -196,15 +196,15 @@ namespace SISOCOVE.Controlador
                 
             List<List<double>> IRCompetidores = new List<List<double>>();
             IRCompetidores = funciónFitness.DeterminarIRCompetidores(IRCompetidores, listaIRNodos);
-                logicaPrincipal.imprimirDatos(IRCompetidores, "IR Competidores");
+                //logicaPrincipal.ImprimirDatos(IRCompetidores, "IR Competidores");
             List<double> IRIND1 = IRCompetidores[0];
             double ganador = selección.Ganador(IRCompetidores);
 
             List<List<double>> individuoGanador = new List<List<double>>();
-            individuoGanador = selección.SeleccionarGanador(ganador, individuoGanador, listaIndACompetir, IRIND1);
-                logicaPrincipal.imprimirDatos(individuoGanador, "Ganador");
+            individuoGanador = selección.SelecciónPorTorneo(ganador, individuoGanador, listaIndACompetir, IRIND1);
+                logicaPrincipal.ImprimirDatos(individuoGanador, "Ganador");
             List<double> listaDistancias = new List<double>();
-            listaDistancias = selección.CrowdingPrueba(individuoGanador, población, listaDistancias);
+            listaDistancias = selección.Crowding(individuoGanador, población, listaDistancias);
                 
             double posición = 0;
             posición = selección.PosiciónIndSemejante(listaDistancias, posición, listaDistancias[0]);

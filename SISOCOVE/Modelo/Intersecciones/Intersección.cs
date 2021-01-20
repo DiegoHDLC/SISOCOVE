@@ -109,7 +109,6 @@ namespace SISOCOVE.Modelo.Intersecciones
         {
             double flujoSaturación = 0;
 
-
             foreach (List<double> flujoNodo in listaFlujoNodos)
             {
                 List<double> listaFlujoSaturaciónNodo = new List<double>();
@@ -123,20 +122,6 @@ namespace SISOCOVE.Modelo.Intersecciones
                 }
             }
             return listaFlujoSaturación;
-        }
-
-        internal double RecuperarFlujo(double nodo, List<List<double>> datosFlujoNodos)
-        {
-            foreach(List<double> flujoNodo in datosFlujoNodos)
-            {
-                if(flujoNodo[0] == nodo)
-                {
-                    return flujoNodo[1];
-                }
-            }
-            return 0;
-        }
-
-        
+        }      
     }
 }

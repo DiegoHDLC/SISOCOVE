@@ -15,32 +15,20 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
             this.miCoordinador = miCoordinador;
         }
 
-        internal List<double> SelecciónPorTorneo(List<double> ind1, List<double> ind2, double flujo, double ciclo, double flujoSaturación)
-        {
-            FunciónFitness funciónfitness = new FunciónFitness();
-            double IR1 = funciónfitness.FFitness(flujo,ind1[3], flujoSaturación, ciclo );
-            double IR2 = funciónfitness.FFitness(flujo, ind2[3], flujoSaturación, ciclo);
-            //Console.WriteLine("IR1: "+IR1);
-            //Console.WriteLine("IR2: " + IR2);
-            if (IR1 < IR2)
-            {
-                return ind1;
-            }
-            else
-            {
-                return ind2;
-            }
-        }
+ 
 
         internal List<List<double>> SeleccionarIndividuoAleatorio(List<List<List<double>>> lista)
         {
             List<double> individuo = new List<double>();
-            
             Random r = new Random();
             int numAleatorio = r.Next(0, lista.Count);
             int i = 0;
             foreach(List<List<double>> ind in lista)
             {
+                if (lista.Count == 0)
+                {
+                    Console.WriteLine("La lista no preseneta individuos");
+                }
                 if(i == numAleatorio)
                 {
                     return ind;
@@ -48,76 +36,13 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
               
                 i++;
             }
+
             return lista[numAleatorio];
         }
 
-        internal List<List<double>> Crowding(List<List<double>> listaPoblación, List<double> indGanador)
-        {
-            
-            List<double> listaDistanciaAux = new List<double>();
-            List<List<double>> listaDistanciaNodos = new List<List<double>>();
-            foreach(List<double> ind in listaPoblación)
-            {
-                List<double> listaDistancia = new List<double>();
-                double distancia = Math.Sqrt(Math.Pow(ind[1] - indGanador[1], 2) + Math.Pow(ind[2] - indGanador[2], 2) + Math.Pow(ind[3] - indGanador[3], 2) + Math.Pow(ind[4] - indGanador[4], 2));
-                listaDistancia.Add(ind[0]);
-                listaDistanciaAux.Add(distancia);
-                listaDistancia.Add(distancia);
-                listaDistanciaNodos.Add(listaDistancia);
-            }
-            double min = listaDistanciaAux[0];
-            for(int i = 0; i < listaDistanciaAux.Count; i++)
-            {
-                if(listaDistanciaAux[i] < min)
-                {
-                    min = listaDistanciaAux[i];
-                }
-            }
-            LogicaPrincipal logicaPrincipal = new LogicaPrincipal();
-            //logicaPrincipal.imprimirDatos(listaDistanciaNodos, "Lista distancia nodos");
-            List<double> nuevoInd = new List<double>();
-            foreach(List<double> ind in listaDistanciaNodos)
-            {
-                if (ind[1] == min)
-                {
+      
 
-                    nuevoInd = ind;
-                }
-            }
-            for(int i = 0; i< nuevoInd.Count; i++)
-            {
-                //Console.WriteLine(nuevoInd[i]);
-            }
-            
-            List<List<double>> listaNuevaPoblación = new List<List<double>>();
-            
-            foreach(List<double> lista in listaPoblación)
-            {
-                if (nuevoInd[0] != lista[0])
-                {
-                    List<double> nuevoIndividuo = new List<double>();
-                    nuevoIndividuo.Add(lista[0]);
-                    nuevoIndividuo.Add(lista[1]);
-                    nuevoIndividuo.Add(lista[2]);
-                    nuevoIndividuo.Add(lista[3]);
-                    nuevoIndividuo.Add(lista[4]);
-                    listaNuevaPoblación.Add(nuevoIndividuo);
-                }
-                else
-                {
-                    List<double> nuevoIndividuo = new List<double>();
-                    nuevoIndividuo.Add(nuevoInd[0]);
-                    nuevoIndividuo.Add(indGanador[1]);
-                    nuevoIndividuo.Add(indGanador[2]);
-                    nuevoIndividuo.Add(indGanador[3]);
-                    nuevoIndividuo.Add(indGanador[4]);
-                    listaNuevaPoblación.Add(nuevoIndividuo);
-                }
-            }
-            return listaNuevaPoblación;
-        }
-
-        internal List<double> CrowdingPrueba(List<List<double>> individuoGanador, List<List<List<double>>> poblaciónPrueba, List<double> listaDistancias)
+        internal List<double> Crowding(List<List<double>> individuoGanador, List<List<List<double>>> poblaciónPrueba, List<double> listaDistancias)
         {
             foreach (List<List<double>> ind in poblaciónPrueba)
             {
@@ -127,9 +52,8 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                     List<double> nodosGanador = individuoGanador[i];
                     List<double> nodosOriginal = ind[i];
                     distancia = Math.Sqrt(Math.Pow(nodosGanador[3] - nodosOriginal[3], 2)) + distancia;
-
                 }
-                //Console.WriteLine(distancia);
+                Console.WriteLine("Distancia: "+distancia);
                 listaDistancias.Add(distancia);
             }
          
@@ -167,8 +91,12 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
             return posición;
         }
 
-        internal List<List<double>> SeleccionarGanador(double ganador, List<List<double>> individuoGanador, List<List<List<double>>> listaIndACompetir, List<double> IRIND1)
+        internal List<List<double>> SelecciónPorTorneo(double ganador, List<List<double>> individuoGanador, List<List<List<double>>> listaIndACompetir, List<double> IRIND1)
         {
+            if(listaIndACompetir.Count == 0)
+            {
+                Console.WriteLine("No existen competidores");
+            }
             if (ganador == IRIND1[0])
             {
                 individuoGanador = listaIndACompetir[0];
@@ -183,10 +111,13 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
 
         internal double Ganador(List<List<double>> IRCompetidores)
         {
+            if(IRCompetidores.Count == 0)
+            {
+                Console.WriteLine("No se presentan datos de competidores");
+            }
             List<double> IRIND1 = IRCompetidores[0];
             List<double> IRIND2 = IRCompetidores[1];
-            double ganador = Math.Min(IRIND1[0], IRIND2[0]);
-         
+            double ganador = Math.Min(IRIND1[0], IRIND2[0]);   
 
             return ganador;
         }
@@ -218,17 +149,49 @@ namespace SISOCOVE.Modelo.AlgoritmoGenético
                 List<List<double>> padre = new List<List<double>>();
                 double numAleatorioPrueba = logicaPrincipal.GenerarNumAleatorio(listaRandom);
                 //Console.WriteLine("número aleatorio: " + numAleatorio);
-                padre = logicaPrincipal.SeleccionarPadre(poblaciónPrueba, probabilidadesAcumuladasPrueba, numAleatorioPrueba, listaPadresPrueba);
+                padre = SeleccionarPadre(poblaciónPrueba, probabilidadesAcumuladasPrueba, numAleatorioPrueba, listaPadresPrueba);
                 while (padre == padreAux)
                 {
                     numAleatorioPrueba = logicaPrincipal.GenerarNumAleatorio(listaRandom);
-                    padre = logicaPrincipal.SeleccionarPadre(poblaciónPrueba, probabilidadesAcumuladasPrueba, numAleatorioPrueba, listaPadresPrueba);
+                    padre = SeleccionarPadre(poblaciónPrueba, probabilidadesAcumuladasPrueba, numAleatorioPrueba, listaPadresPrueba);
                 }
                 padreAux = padre;
                 listaPadresPrueba.Add(padre);
 
             }
             return listaPadresPrueba;
+        }
+
+        private List<List<double>> SeleccionarPadre(List<List<List<double>>> listaPoblación, List<List<double>> probabilidadesAcumuladas, double numAleatorio, List<List<List<double>>> listaPadres)
+        {
+            foreach (List<double> probAcum in probabilidadesAcumuladas)
+            {
+                //Console.WriteLine("Numero aleatorio: " + numAleatorio);
+                if(listaPoblación.Count == 0)
+                {
+                    Console.WriteLine("No existen indidivuos dentro de la población");
+                }
+                if (numAleatorio < probAcum[1])
+                {
+                    double posición = probAcum[0];
+                    double cont = 0;
+
+                    foreach (List<List<double>> ind in listaPoblación)
+                    {
+                        
+                        if (cont == posición)
+                        {
+
+                            //verificarPadre(listaPadres, padre);
+                            return ind;
+                        }
+                        cont++;
+                    }
+
+                }
+
+            }
+            return null;
         }
     }
 }
